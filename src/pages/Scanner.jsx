@@ -37,36 +37,36 @@ export default function Scanner() {
   };
 
   const startScanner = async () => {
-    if (startedRef.current) return;
-    const el = document.getElementById("qr-reader");
-    if (!el) return;
+  if (startedRef.current) return;
 
-    try {
-      startedRef.current = true;
-      const html5QrCode = new Html5Qrcode("qr-reader");
-      scannerRef.current = html5QrCode;
+  const el = document.getElementById("qr-reader");
+  if (!el) return;
 
-      const devices = await Html5Qrcode.getCameras();
-      if (!devices.length) {
-        setStatus({ type: 'error', msg: "No camera found" });
-        startedRef.current = false;
-        return;
+  try {
+    startedRef.current = true;
+
+    const html5QrCode = new Html5Qrcode("qr-reader");
+    scannerRef.current = html5QrCode;
+
+    await html5QrCode.start(
+      { facingMode: "environment" }, // ✅ FORCE BACK CAMERA
+      {
+        fps: 10,
+        qrbox: { width: 250, height: 250 },
+        aspectRatio: 1.0,
+      },
+      async (decodedText) => {
+        await stopScanner();
+
+        const qrValue = decodedText.split("/").pop().trim();
+        await markAttendance(qrValue);
       }
-
-      await html5QrCode.start(
-        devices[0].id,
-        { 
-          fps: 10, 
-          qrbox: { width: 250, height: 250 },
-          aspectRatio: 1.0 // Force square aspect ratio
-        },
-        async (decodedText) => {
-          await stopScanner();
-          const qrValue = decodedText.split("/").pop().trim();
-await markAttendance(qrValue);
-
-        }
-      );
+    );
+  } catch (e) {
+    console.error(e);
+    setStatus({ type: "error", msg: "Camera access denied" });
+    startedRef.current = false;
+  }
     } catch (e) {
       setStatus({ type: 'error', msg: "Camera access denied" });
       startedRef.current = false;
@@ -242,3 +242,4 @@ await markAttendance(qrValue);
   );
 
 }
+
