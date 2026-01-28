@@ -62,7 +62,9 @@ export default function Scanner() {
         },
         async (decodedText) => {
           await stopScanner();
-          await markAttendance(decodedText);
+          const qrValue = decodedText.split("/").pop().trim();
+await markAttendance(qrValue);
+
         }
       );
     } catch (e) {
@@ -238,4 +240,5 @@ export default function Scanner() {
       </div>
     </div>
   );
+
 }
