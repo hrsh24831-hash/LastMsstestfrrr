@@ -36,7 +36,7 @@ export default function Scanner() {
     }
   };
 
-  const startScanner = async () => {
+ const startScanner = async () => {
   if (startedRef.current) return;
 
   const el = document.getElementById("qr-reader");
@@ -67,11 +67,7 @@ export default function Scanner() {
     setStatus({ type: "error", msg: "Camera access denied" });
     startedRef.current = false;
   }
-    } catch (e) {
-      setStatus({ type: 'error', msg: "Camera access denied" });
-      startedRef.current = false;
-    }
-  };
+};
 
   const stopScanner = async () => {
     if (!scannerRef.current) { hardStopCamera(); return; }
@@ -240,6 +236,4 @@ export default function Scanner() {
       </div>
     </div>
   );
-
 }
-
