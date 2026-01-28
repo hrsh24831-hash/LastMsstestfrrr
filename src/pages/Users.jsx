@@ -129,7 +129,7 @@ export default function Users() {
                       </td>
                       <td style={cellStyle}>
                         {isActive ? (
-                          <a href={`http://localhost:5000/qr/${u._id}`} target="_blank" rel="noopener noreferrer" style={{ color: "#3b82f6", fontWeight: "600", fontSize: "0.9rem" }}>
+                          <a href={`https://lastmsstestbackkk-1.onrender.com/qr/${u._id}`} target="_blank" rel="noopener noreferrer" style={{ color: "#3b82f6", fontWeight: "600", fontSize: "0.9rem" }}>
                             Download QR
                           </a>
                         ) : <span style={{ color: "#94a3b8", fontStyle: "italic" }}>Blocked</span>}
@@ -202,3 +202,4 @@ const inputStyle = { width: "100%", padding: "12px 14px", borderRadius: "12px", 
 const labelStyle = { display: "block", fontSize: "0.8rem", fontWeight: "700", color: "#64748b", marginBottom: "6px", marginLeft: "4px" };
 
 const subInfoStyle = { fontSize: "0.85rem", color: "#475569", fontWeight: "500" };
+
