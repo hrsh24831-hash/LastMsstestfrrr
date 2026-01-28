@@ -22,15 +22,15 @@ export default function Users() {
     loadUsers();
   }, []);
 
-  const renew = async () => {
+   const renew = async () => {
     try {
       if (!selectedUser) return;
       if (selectedUser.subscription) {
-        await axios.post("http://localhost:5000/subscriptions/renew", {
+        await axios.post(`${import.meta.env.VITE_API_URL}/subscriptions/renew`, {
           userId: selectedUser._id, planType, vegType, days,
         });
       } else {
-        await axios.post("http://localhost:5000/subscriptions", {
+        await axios.post(`${import.meta.env.VITE_API_URL}/subscriptions`, {
           userId: selectedUser._id, planType, vegType,
           startDate: new Date(),
           endDate: new Date(Date.now() + Number(days) * 24 * 60 * 60 * 1000),
@@ -200,4 +200,5 @@ const headerStyle = { padding: "16px 20px", fontSize: "0.75rem", color: "#94a3b8
 const cellStyle = { padding: "20px", fontSize: "0.95rem" };
 const inputStyle = { width: "100%", padding: "12px 14px", borderRadius: "12px", border: "1px solid #e2e8f0", marginBottom: "16px", outline: "none", fontSize: "1rem" };
 const labelStyle = { display: "block", fontSize: "0.8rem", fontWeight: "700", color: "#64748b", marginBottom: "6px", marginLeft: "4px" };
+
 const subInfoStyle = { fontSize: "0.85rem", color: "#475569", fontWeight: "500" };
